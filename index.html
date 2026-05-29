@@ -1,30 +1,694 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Hank Quinlan, Horrible Cop</title>
-		<!-- link to main stylesheet -->
-		<link rel="stylesheet" type="text/css" href="/css/main.css">
-	</head>
-	<body>
-		<nav>
-    		<ul>
-        		<li><a href="/">Home</a></li>
-	        	<li><a href="/about">About</a></li>
-        		<li><a href="/cv">CV</a></li>
-        		<li><a href="/blog">Blog</a></li>
-    		</ul>
-		</nav>
-		<div class="container">
-    		<div class="blurb">
-        		<h1>Hi there, I'm Hank Quinlan!</h1>
-				<p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-    		</div><!-- /.blurb -->
-		</div><!-- /.container -->
-		<footer>
-    		<ul>
-        		<li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-        		<li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-			</ul>
-		</footer>
-	</body>
-</html>
+% ============================================================
+% Wiley NJD-v5 Manuscript Template
+% Clean working version for Overleaf
+% ============================================================
+
+% IMPORTANT:
+% In Overleaf, set the compiler to XeLaTeX.
+% The Wiley template notes that XeLaTeX is required for font compatibility.
+
+\documentclass[HARVARD,LATO2COL]{WileyNJDv5}
+
+% ------------------------------------------------------------
+% Article metadata
+% ------------------------------------------------------------
+
+\articletype{Research Article}
+
+\received{Date Month Year}
+\revised{Date Month Year}
+\accepted{Date Month Year}
+\journal{Journal Name}
+\volume{00}
+\copyyear{2026}
+\startpage{1}
+
+\raggedbottom
+
+\begin{document}
+
+% ------------------------------------------------------------
+% Title
+% ------------------------------------------------------------
+
+\title{Can Large Language Models Measure Linguistic Bias? Bayesian Aggregation of Multi-LLM Ratings with Uncertainty Quantification}
+
+% ------------------------------------------------------------
+% Authors
+% ------------------------------------------------------------
+
+\author[1]{Zahra Sajedinia}
+\author[1]{Author Two}
+\author[1]{Author Three}
+\author[2]{Author Four}
+
+\authormark{SAJEDINIA \textsc{et al.}}
+\titlemark{Can Large Language Models Measure Linguistic Bias?}
+
+% ------------------------------------------------------------
+% Affiliations
+% ------------------------------------------------------------
+
+\address[1]{\orgdiv{School of Economics and Business Administration}, 
+\orgname{Saint Mary's College of California}, 
+\orgaddress{\city{Moraga}, \state{California}, \country{USA}}}
+
+\address[2]{\orgdiv{Department Name}, 
+\orgname{Institution Name}, 
+\orgaddress{\city{City}, \state{State}, \country{Country}}}
+
+% ------------------------------------------------------------
+% Corresponding author
+% ------------------------------------------------------------
+
+\corres{Corresponding author: Zahra Sajedinia, School of Economics and Business Administration, Saint Mary's College of California, Moraga, California, USA. \email{your-email@stmarys-ca.edu}}
+
+% ------------------------------------------------------------
+% Funding information, if applicable
+% ------------------------------------------------------------
+
+%\fundingInfo{This work was supported by ...}
+
+% ------------------------------------------------------------
+% Abstract
+% ------------------------------------------------------------
+
+\abstract[Abstract]{
+Large language models (LLMs) are increasingly used to generate, evaluate, and moderate textual content, yet their ability to measure linguistic bias remains uncertain. This study develops and evaluates a Bayesian aggregation framework for combining bias ratings from multiple LLMs while explicitly quantifying uncertainty. Rather than treating a single model's score as a definitive measure, the proposed approach integrates ratings across several LLMs and produces posterior estimates of bias with associated uncertainty intervals. The paper compares the Bayesian aggregation model with simpler aggregation strategies and existing automated bias-detection approaches. Using a set of text responses rated by multiple LLMs and, where available, human evaluators, we assess agreement, calibration, robustness, and classification performance across low-, medium-, and high-bias cases. The results aim to show whether multi-LLM aggregation can provide a more reliable and transparent approach to measuring linguistic bias than relying on any single model or deterministic scoring method. The study contributes to methodological work on AI-based evaluation, bias measurement, and uncertainty-aware decision support.
+}
+
+% ------------------------------------------------------------
+% Keywords
+% ------------------------------------------------------------
+
+\keywords{large language models, linguistic bias, Bayesian aggregation, uncertainty quantification, algorithmic fairness, text analysis}
+
+% ------------------------------------------------------------
+% Journal citation placeholder
+% ------------------------------------------------------------
+
+\jnlcitation{\cname{%
+\author{Sajedinia Z.},
+\author{Author Two},
+\author{Author Three}, and
+\author{Author Four}}.
+\ctitle{Can Large Language Models Measure Linguistic Bias? Bayesian Aggregation of Multi-LLM Ratings with Uncertainty Quantification.} 
+\cjournal{\it Journal Name.} 
+\cvol{2026;00(00):1--18}.}
+
+\maketitle
+
+% ------------------------------------------------------------
+% Abbreviations
+% ------------------------------------------------------------
+
+\renewcommand\thefootnote{}
+\footnotetext{\textbf{Abbreviations:} AI, artificial intelligence; LLM, large language model; NLP, natural language processing; MCMC, Markov chain Monte Carlo.}
+
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+\setcounter{footnote}{1}
+
+% ============================================================
+% Main manuscript
+% ============================================================
+
+\section{Introduction}\label{sec:introduction}
+
+Write the introduction here.
+
+Suggested content:
+\begin{itemize}
+    \item Explain why measuring linguistic bias in AI-generated text matters.
+    \item Discuss the growing use of LLMs in education, hiring, advising, business, and decision-support contexts.
+    \item Explain the limitation of relying on a single model or single automated bias score.
+    \item Introduce the need for uncertainty-aware bias measurement.
+    \item Present the central research question.
+    \item Summarize the proposed Bayesian aggregation framework.
+    \item State the paper's contributions.
+\end{itemize}
+
+Example research question:
+
+\begin{quote}
+Can ratings from multiple large language models be aggregated in a statistically principled way to produce reliable bias scores with uncertainty quantification?
+\end{quote}
+
+
+\section{Background and Related Work}\label{sec:background}
+
+\subsection{Linguistic Bias in AI-Generated Text}\label{subsec:linguistic_bias}
+
+Write about definitions of linguistic bias, stereotypes, unequal framing, discouragement, identity-based harm, and biased assumptions in generated text.
+
+\subsection{LLMs as Evaluators}\label{subsec:llm_evaluators}
+
+Discuss recent work using LLMs as judges, evaluators, annotators, or classifiers.
+
+Possible points:
+\begin{itemize}
+    \item LLMs can provide scalable text evaluation.
+    \item LLM judgments may vary across models.
+    \item LLMs may reproduce their own biases.
+    \item Model disagreement can be informative rather than merely problematic.
+\end{itemize}
+
+\subsection{Existing Automatic Bias Detection Methods}\label{subsec:bias_detection_methods}
+
+Discuss comparison methods, such as:
+\begin{itemize}
+    \item dictionary-based or lexicon-based approaches,
+    \item toxicity or hate-speech classifiers,
+    \item sentiment and subjectivity models,
+    \item fairness-oriented NLP models,
+    \item zero-shot or prompt-based LLM scoring,
+    \item simple averaging or majority-vote aggregation.
+\end{itemize}
+
+\subsection{Bayesian Aggregation and Uncertainty Quantification}\label{subsec:bayesian_aggregation}
+
+Explain why a Bayesian framework is useful.
+
+Suggested points:
+\begin{itemize}
+    \item It treats bias as a latent construct.
+    \item It combines information from multiple noisy raters.
+    \item It allows model-specific reliability to be estimated.
+    \item It produces posterior uncertainty intervals.
+    \item It avoids presenting a single score as falsely precise.
+\end{itemize}
+
+
+\section{Research Objectives and Contributions}\label{sec:objectives}
+
+This study has three main objectives:
+
+\begin{enumerate}
+    \item To develop a Bayesian model for aggregating bias ratings from multiple LLMs.
+    \item To compare the Bayesian model against simpler aggregation methods and existing automatic text-bias detection tools.
+    \item To evaluate whether Bayesian aggregation improves reliability, robustness, and uncertainty-aware classification of linguistic bias.
+\end{enumerate}
+
+The paper makes the following contributions:
+
+\begin{itemize}
+    \item It proposes an uncertainty-aware framework for multi-LLM bias measurement.
+    \item It evaluates whether LLM disagreement can be used as a signal of uncertainty.
+    \item It compares Bayesian aggregation with simpler and more commonly used scoring approaches.
+    \item It provides a reproducible workflow for bias scoring, model comparison, and validation.
+\end{itemize}
+
+
+\section{Data and Study Design}\label{sec:data}
+
+\subsection{Text Dataset}\label{subsec:text_dataset}
+
+Describe the text data used in the study.
+
+Suggested content:
+\begin{itemize}
+    \item Source of prompts and responses.
+    \item Number of text items.
+    \item Domains covered, such as education, business, advising, hiring, or healthcare.
+    \item Whether the texts were generated by LLMs, collected from benchmark datasets, or manually constructed.
+    \item How low-, medium-, and high-bias examples were represented.
+\end{itemize}
+
+\subsection{Bias Rubric}\label{subsec:bias_rubric}
+
+Describe the rubric used to score bias.
+
+For example, the rubric may include:
+
+\begin{itemize}
+    \item stereotyping,
+    \item unequal framing,
+    \item discouragement or barriers,
+    \item identity attack or harmful language,
+    \item frequency or intensity of biased content.
+\end{itemize}
+
+You may define a composite score as:
+
+\begin{equation}
+B_i = 0.25S_i + 0.20F_i + 0.25D_i + 0.20A_i + 0.10I_i,
+\label{eq:bias_score}
+\end{equation}
+
+where $S_i$ represents stereotyping, $F_i$ represents unequal framing, $D_i$ represents discouragement or barriers, $A_i$ represents identity attack or harmful language, and $I_i$ represents frequency or intensity.
+
+\subsection{LLM Rating Procedure}\label{subsec:llm_rating}
+
+Describe how each LLM rated each text.
+
+Suggested content:
+\begin{itemize}
+    \item List the LLMs used.
+    \item Explain the standardized prompt given to each model.
+    \item Explain whether each model produced a continuous score, categorical label, or both.
+    \item Describe how repeated ratings were handled, if applicable.
+    \item Explain how model outputs were cleaned and standardized.
+\end{itemize}
+
+\subsection{Human Validation Data}\label{subsec:human_validation}
+
+If human ratings are available, describe them here.
+
+Suggested content:
+\begin{itemize}
+    \item Number of human annotators.
+    \item Training or instructions given to annotators.
+    \item Rating scale.
+    \item Inter-rater agreement.
+    \item How human ratings were used for validation.
+\end{itemize}
+
+
+\section{Methodology}\label{sec:methodology}
+
+\subsection{Notation}\label{subsec:notation}
+
+Let $i = 1, \ldots, N$ index text items and $j = 1, \ldots, J$ index LLM raters. Let $y_{ij}$ denote the bias score assigned to text item $i$ by model $j$. The latent true bias level for item $i$ is denoted by $\theta_i$.
+
+\subsection{Simple Aggregation Methods}\label{subsec:simple_aggregation}
+
+Before estimating the Bayesian model, we compare several simpler aggregation methods.
+
+\subsubsection{Mean Score}
+
+\begin{equation}
+\bar{y}_i = \frac{1}{J}\sum_{j=1}^{J} y_{ij}.
+\label{eq:mean_score}
+\end{equation}
+
+\subsubsection{Median Score}
+
+\begin{equation}
+\tilde{y}_i = \text{median}(y_{i1}, y_{i2}, \ldots, y_{iJ}).
+\label{eq:median_score}
+\end{equation}
+
+\subsubsection{Trimmed Mean}
+
+\begin{equation}
+\bar{y}_{i,\text{trim}} = \text{trimmed mean}(y_{i1}, y_{i2}, \ldots, y_{iJ}).
+\label{eq:trimmed_mean}
+\end{equation}
+
+\subsubsection{Majority Vote}
+
+For categorical ratings, the final label is assigned as:
+
+\begin{equation}
+\hat{c}_i = \arg\max_{c \in \{Low, Medium, High\}} \sum_{j=1}^{J} \mathbb{I}(c_{ij}=c).
+\label{eq:majority_vote}
+\end{equation}
+
+\subsection{Bayesian Aggregation Model}\label{subsec:bayesian_model}
+
+We model each observed LLM rating as a noisy measurement of an underlying latent bias score:
+
+\begin{equation}
+y_{ij} \sim \mathcal{N}(\theta_i + \alpha_j, \sigma_j^2),
+\label{eq:bayesian_likelihood}
+\end{equation}
+
+where $\theta_i$ is the latent bias score for item $i$, $\alpha_j$ is a model-specific bias term for LLM $j$, and $\sigma_j^2$ captures model-specific rating variability.
+
+The latent bias score is assigned the prior:
+
+\begin{equation}
+\theta_i \sim \mathcal{N}(\mu_{\theta}, \sigma_{\theta}^2).
+\label{eq:theta_prior}
+\end{equation}
+
+Model-specific bias terms are assigned the prior:
+
+\begin{equation}
+\alpha_j \sim \mathcal{N}(0, \sigma_{\alpha}^2).
+\label{eq:alpha_prior}
+\end{equation}
+
+Model-specific standard deviations are assigned weakly informative priors:
+
+\begin{equation}
+\sigma_j \sim \text{Half-Cauchy}(0, 1).
+\label{eq:sigma_prior}
+\end{equation}
+
+The posterior distribution is proportional to:
+
+\begin{equation}
+p(\theta, \alpha, \sigma \mid y) \propto p(y \mid \theta, \alpha, \sigma)p(\theta)p(\alpha)p(\sigma).
+\label{eq:posterior}
+\end{equation}
+
+\subsection{Bias Classification from Posterior Scores}\label{subsec:classification}
+
+Posterior estimates of $\theta_i$ can be converted into categorical bias labels. For example:
+
+\begin{equation}
+c_i =
+\begin{cases}
+Low, & 0 \leq \theta_i < 0.333, \\
+Medium, & 0.333 \leq \theta_i < 0.666, \\
+High, & 0.666 \leq \theta_i \leq 1.
+\end{cases}
+\label{eq:categorical_labels}
+\end{equation}
+
+Uncertainty can be summarized using posterior credible intervals:
+
+\begin{equation}
+CI_i = [Q_{0.025}(\theta_i), Q_{0.975}(\theta_i)].
+\label{eq:credible_interval}
+\end{equation}
+
+
+\section{Simulation Study}\label{sec:simulation}
+
+\subsection{Purpose of the Simulation}\label{subsec:simulation_purpose}
+
+The simulation study evaluates whether the Bayesian aggregation model can recover latent bias scores under controlled conditions.
+
+\subsection{Simulation Design}\label{subsec:simulation_design}
+
+Describe the simulation settings.
+
+Suggested factors:
+\begin{itemize}
+    \item Number of text items.
+    \item Number of LLM raters.
+    \item True latent bias distribution.
+    \item Model-specific noise levels.
+    \item Model-specific systematic bias.
+    \item Missing ratings.
+    \item Disagreement across LLMs.
+\end{itemize}
+
+\subsection{Simulation Scenarios}\label{subsec:simulation_scenarios}
+
+Possible simulation scenarios:
+
+\begin{enumerate}
+    \item All LLMs are equally reliable.
+    \item Some LLMs are noisier than others.
+    \item Some LLMs systematically overestimate bias.
+    \item Some LLMs systematically underestimate bias.
+    \item A subset of LLMs produces outlier ratings.
+    \item Ratings are partially missing.
+\end{enumerate}
+
+\subsection{Simulation Evaluation Metrics}\label{subsec:simulation_metrics}
+
+Evaluate performance using:
+
+\begin{itemize}
+    \item mean absolute error,
+    \item root mean squared error,
+    \item correlation with true latent bias,
+    \item coverage of credible intervals,
+    \item classification accuracy,
+    \item macro-F1 score for low-, medium-, and high-bias labels.
+\end{itemize}
+
+
+\section{Empirical Analysis}\label{sec:empirical_analysis}
+
+\subsection{Descriptive Statistics}\label{subsec:descriptive_statistics}
+
+Report descriptive statistics for LLM ratings.
+
+Suggested tables:
+\begin{itemize}
+    \item Number of items and ratings.
+    \item Mean and standard deviation of ratings by LLM.
+    \item Correlation matrix across LLMs.
+    \item Distribution of low-, medium-, and high-bias labels.
+\end{itemize}
+
+\subsection{Agreement Across LLMs}\label{subsec:agreement}
+
+Analyze agreement across models.
+
+Possible metrics:
+\begin{itemize}
+    \item pairwise correlations,
+    \item intraclass correlation coefficient,
+    \item Krippendorff's alpha,
+    \item Fleiss' kappa for categorical labels.
+\end{itemize}
+
+\subsection{Bayesian Model Results}\label{subsec:bayesian_results}
+
+Report posterior estimates.
+
+Suggested content:
+\begin{itemize}
+    \item Posterior mean bias score for each item.
+    \item Credible intervals for each item.
+    \item Estimated model-specific bias terms.
+    \item Estimated model-specific reliability or variance.
+    \item Posterior uncertainty by bias category.
+\end{itemize}
+
+\subsection{Comparison with Simpler Aggregation Methods}\label{subsec:model_comparison}
+
+Compare the Bayesian model against:
+
+\begin{itemize}
+    \item mean aggregation,
+    \item median aggregation,
+    \item trimmed mean aggregation,
+    \item majority vote,
+    \item individual LLM ratings,
+    \item automatic bias-detection tools.
+\end{itemize}
+
+\subsection{Robustness Checks}\label{subsec:robustness}
+
+Suggested robustness checks:
+
+\begin{itemize}
+    \item Remove one LLM at a time.
+    \item Repeat analysis using alternative bias-label cutoffs.
+    \item Compare results with and without outlier ratings.
+    \item Compare continuous-score and categorical-label versions.
+    \item Test sensitivity to prior choices.
+\end{itemize}
+
+
+\section{Results}\label{sec:results}
+
+\subsection{Main Findings}\label{subsec:main_findings}
+
+Write the main findings here.
+
+Suggested structure:
+\begin{enumerate}
+    \item How much do LLMs agree in bias ratings?
+    \item Does Bayesian aggregation reduce instability compared with simpler methods?
+    \item Does the Bayesian model identify uncertain or controversial cases?
+    \item Which LLMs appear more or less reliable?
+    \item How well do automatic methods align with human or consensus labels?
+\end{enumerate}
+
+\subsection{Tables and Figures}\label{subsec:tables_figures}
+
+Insert main tables and figures here.
+
+Example table:
+
+\begin{table*}[!t]
+\centering
+\caption{Comparison of bias scoring methods.\label{tab:method_comparison}}
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lcccc}
+\toprule
+\textbf{Method} & \textbf{MAE} & \textbf{RMSE} & \textbf{Correlation} & \textbf{Macro-F1} \\
+\midrule
+Mean aggregation & -- & -- & -- & -- \\
+Median aggregation & -- & -- & -- & -- \\
+Majority vote & -- & -- & -- & -- \\
+Bayesian aggregation & -- & -- & -- & -- \\
+Automatic bias detector & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+Example figure placeholder:
+
+\begin{figure*}[!t]
+\centerline{\includegraphics[width=\textwidth,draft]{figure_placeholder}}
+\caption{Posterior bias estimates with 95\% credible intervals.\label{fig:posterior_intervals}}
+\end{figure*}
+
+
+\section{Discussion}\label{sec:discussion}
+
+Discuss what the findings mean.
+
+Suggested content:
+\begin{itemize}
+    \item Interpret whether LLMs can meaningfully measure linguistic bias.
+    \item Explain why uncertainty quantification matters.
+    \item Discuss when multi-LLM aggregation is useful.
+    \item Discuss the risks of treating LLM ratings as objective ground truth.
+    \item Explain implications for AI auditing, content moderation, education, and decision support.
+\end{itemize}
+
+\subsection{Theoretical Implications}\label{subsec:theoretical_implications}
+
+Explain how the paper contributes to theory on bias measurement, AI evaluation, and algorithmic judgment.
+
+\subsection{Methodological Implications}\label{subsec:methodological_implications}
+
+Explain the value of Bayesian aggregation, model-specific reliability estimation, and uncertainty intervals.
+
+\subsection{Practical Implications}\label{subsec:practical_implications}
+
+Discuss how researchers, educators, organizations, or AI governance teams could use the proposed framework.
+
+
+\section{Limitations and Future Research}\label{sec:limitations}
+
+Possible limitations:
+
+\begin{itemize}
+    \item LLM ratings may reflect model-specific training data and alignment procedures.
+    \item Human ratings may also contain subjectivity and disagreement.
+    \item Bias is context-dependent and difficult to reduce to a single score.
+    \item Results may depend on the selected LLMs and prompts.
+    \item The dataset may not cover all forms of linguistic bias.
+\end{itemize}
+
+Future research may:
+\begin{itemize}
+    \item Test the framework on larger and more diverse datasets.
+    \item Include more human validation.
+    \item Compare across languages and cultural contexts.
+    \item Extend the model to ordinal or categorical ratings.
+    \item Develop real-time bias scoring tools with uncertainty displays.
+\end{itemize}
+
+
+\section{Conclusion}\label{sec:conclusion}
+
+Write the conclusion here.
+
+Suggested content:
+\begin{itemize}
+    \item Restate the purpose of the study.
+    \item Summarize the Bayesian aggregation approach.
+    \item Highlight the main findings.
+    \item Emphasize the importance of uncertainty-aware bias measurement.
+    \item End with a clear contribution statement.
+\end{itemize}
+
+
+% ============================================================
+% Back matter
+% ============================================================
+
+\bmsection*{Author Contributions}
+
+Zahra Sajedinia: conceptualization, methodology, formal analysis, writing--original draft, writing--review and editing.  
+Author Two: data curation, validation, writing--review and editing.  
+Author Three: software, analysis, writing--review and editing.  
+Author Four: supervision, writing--review and editing.
+
+\bmsection*{Acknowledgments}
+
+The authors thank [insert names or groups] for their helpful feedback and support.
+
+\bmsection*{Financial Disclosure}
+
+The authors received no specific funding for this work.
+
+\bmsection*{Conflict of Interest}
+
+The authors declare no potential conflict of interest.
+
+\bmsection*{Data Availability Statement}
+
+The data and code used in this study will be made available upon reasonable request or through an online repository after publication.
+
+\bmsection*{Ethics Statement}
+
+If human participants or human annotators were involved, describe the ethics approval, consent procedure, or exemption here.
+
+% ------------------------------------------------------------
+% Bibliography
+% ------------------------------------------------------------
+
+\bibliography{references}
+
+\bmsection*{Supporting Information}
+
+Additional supporting information may be found in the online version of the article at the publisher's website.
+
+% ============================================================
+% Appendix
+% ============================================================
+
+\appendix
+
+\bmsection{Bias Rating Rubric\label{app:bias_rubric}}
+
+Provide the full rubric used to score bias.
+
+\begin{table*}[!t]
+\centering
+\caption{Bias scoring rubric.\label{tab:bias_rubric}}
+\begin{tabular*}{\textwidth}{@{\extracolsep\fill}lp{0.65\textwidth}c}
+\toprule
+\textbf{Dimension} & \textbf{Description} & \textbf{Weight} \\
+\midrule
+Stereotyping & Measures whether the text relies on group-based assumptions or stereotypes. & 0.25 \\
+Unequal framing & Measures whether groups are described using unequal standards or framing. & 0.20 \\
+Discouragement/barriers & Measures whether the text discourages or limits opportunities for a group. & 0.25 \\
+Identity attack/harm & Measures whether the text contains harmful identity-based language. & 0.20 \\
+Frequency/intensity & Measures how frequent or intense the biased content is. & 0.10 \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+
+\bmsection{LLM Rating Prompt\label{app:llm_prompt}}
+
+Insert the exact prompt used to ask LLMs to rate each text.
+
+\begin{quote}
+You are evaluating whether the following text contains linguistic bias. Please score the text from 0 to 1, where 0 means no detectable bias and 1 means highly biased. Use the provided rubric and return only the numerical score and a brief justification.
+\end{quote}
+
+
+\bmsection{Additional Simulation Results\label{app:simulation_results}}
+
+Insert additional simulation tables, diagnostic plots, and sensitivity analyses here.
+
+
+\bmsection{Additional Model Diagnostics\label{app:model_diagnostics}}
+
+Report Bayesian diagnostics here, such as:
+
+\begin{itemize}
+    \item trace plots,
+    \item posterior predictive checks,
+    \item effective sample size,
+    \item $\hat{R}$ statistics,
+    \item prior sensitivity checks.
+\end{itemize}
+
+
+\bmsection{Example Code\label{app:code}}
+
+If needed, include selected R or Python code here.
+
+\begin{lstlisting}[caption={Example pseudocode for Bayesian aggregation},label={lst:bayesian_code},basicstyle=\fontsize{8}{10}\selectfont\ttfamily]
+# Load LLM ratings
+# Fit Bayesian aggregation model
+# Extract posterior mean and credible intervals
+# Compare with simple aggregation methods
+# Export tables and figures
+\end{lstlisting}
+
+\end{document}
